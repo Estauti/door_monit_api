@@ -13,17 +13,6 @@ class DevicesController < ApplicationController
     render json: @device
   end
 
-  # POST /devices
-  def create
-    @device = Device.new(device_params)
-
-    if @device.save
-      render json: @device, status: :created, location: @device
-    else
-      render json: @device.errors, status: :unprocessable_entity
-    end
-  end
-
   # PATCH/PUT /devices/1
   def update
     if @device.update(device_params)
