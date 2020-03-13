@@ -15,27 +15,28 @@ class MeasurementsController < ApplicationController
 
   # POST /measurements
   def create
-    @measurement = Measurement.new(measurement_params)
-
-    if @measurement.save
-      render json: @measurement, status: :created, location: @measurement
-    else
-      render json: @measurement.errors, status: :unprocessable_entity
+    device = Device.find_by(mac: params[:mac])
+    if device.nil?
+      device = Device.create!(
+        mac: params[:mac],
+        name: "Default"
+      )
     end
-  end
 
-  # PATCH/PUT /measurements/1
-  def update
-    if @measurement.update(measurement_params)
-      render json: @measurement
+    if device.authorized
+      @measurement = device.create_measurement(measurement_params)
+
+      if @measurement.present?
+        render json: @measurement, status: :created
+      else
+        render json: @measurement.errors, status: :unprocessable_entity
+      end
+
     else
-      render json: @measurement.errors, status: :unprocessable_entity
+      head(401)
     end
-  end
 
-  # DELETE /measurements/1
-  def destroy
-    @measurement.destroy
+    
   end
 
   private
