@@ -47,6 +47,6 @@ class MeasurementsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def measurement_params
-      params.require(:measurement).permit(:open, :device_id)
+      params.permit(:opened, :device_id)
     end
 end

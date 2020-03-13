@@ -3,9 +3,22 @@ class DevicesController < ApplicationController
 
   # GET /devices
   def index
-    @devices = Device.all
+    @devices = Device.select("
+      devices.*,
+      last_measurement.opened
+    ")
+    .joins("LEFT JOIN (
+        SELECT 
+          id, 
+          device_id,
+          opened
+        FROM measurements
+        ORDER BY id DESC
+        LIMIT 1
+      ) AS last_measurement ON last_measurement.device_id = devices.id")
+    .order("devices.name")
 
-    render json: @devices
+    render json: @devices, status: :ok
   end
 
   # GET /devices/1
