@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_11_230638) do
+ActiveRecord::Schema.define(version: 2020_03_13_222428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,4 +25,13 @@ ActiveRecord::Schema.define(version: 2020_03_11_230638) do
     t.index ["mac"], name: "index_devices_on_mac", unique: true
   end
 
+  create_table "measurements", force: :cascade do |t|
+    t.boolean "open", default: false
+    t.bigint "device_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["device_id"], name: "index_measurements_on_device_id"
+  end
+
+  add_foreign_key "measurements", "devices"
 end

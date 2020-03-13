@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :measurements
   scope :api do
     resources :devices
   end
