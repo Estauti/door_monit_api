@@ -3,7 +3,7 @@ class MeasurementsController < ApplicationController
 
   # GET /measurements
   def index
-    @measurements = Measurement.all
+    @measurements = Measurement.all.order("id DESC").limit(10)
 
     render json: @measurements
   end
