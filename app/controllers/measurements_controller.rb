@@ -1,5 +1,6 @@
 class MeasurementsController < ApplicationController
   before_action :set_measurement, only: [:show, :update, :destroy]
+  before_action :find_or_create_device, only: :create
 
   # GET /measurements
   def index
@@ -15,27 +16,13 @@ class MeasurementsController < ApplicationController
 
   # POST /measurements
   def create
-    device = Device.find_by(mac: params[:mac])
-    if device.nil?
-      device = Device.create!(
-        mac: params[:mac],
-        name: "Default"
-      )
-    end
+    @measurement = @device.create_measurement(measurement_params)
 
-    if device.authorized
-      @measurement = device.create_measurement(measurement_params)
-
-      if @measurement.present?
-        render json: @measurement, status: :created
-      else
-        render json: @measurement.errors, status: :unprocessable_entity
-      end
-
+    if @measurement.present?
+      render json: @measurement, status: :created
     else
-      head(401)
+      render json: @measurement.errors, status: :unprocessable_entity
     end
-
     
   end
 
@@ -43,6 +30,19 @@ class MeasurementsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_measurement
       @measurement = Measurement.find(params[:id])
+    end
+
+    def find_or_create_device
+      @device = Device.find_by(mac: params[:mac])
+
+      if @device.nil?
+        @device = Device.create!(
+          mac: params[:mac],
+          name: "Default"
+        )
+      end
+
+      head(401) unless @device.authorized
     end
 
     # Only allow a trusted parameter "white list" through.
