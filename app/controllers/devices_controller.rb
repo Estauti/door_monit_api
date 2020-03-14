@@ -48,6 +48,6 @@ class DevicesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def device_params
-      params.require(:device).permit(:mac, :name, :active)
+      params.require(:device).permit(:mac, :name, :active, :authorized)
     end
 end
