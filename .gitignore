@@ -24,3 +24,7 @@ schedule.log
 /config/master.key
 # Ignore application configuration
 /config/application.yml
+
+
+# env file
+.env

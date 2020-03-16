@@ -1,4 +1,6 @@
 class MeasurementsController < ApplicationController
+  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: :create
   before_action :set_measurement, only: [:show, :update, :destroy]
   before_action :find_or_create_device, only: :create
 
@@ -42,7 +44,7 @@ class MeasurementsController < ApplicationController
         )
       end
 
-      head(401) unless @device.authorized
+      head(403) unless @device.authorized
     end
 
     # Only allow a trusted parameter "white list" through.
