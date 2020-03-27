@@ -4,7 +4,11 @@ class MeasurementsController < ApplicationController
 
   # GET /measurements
   def index
-    @measurements = Measurement.all.order("id DESC").limit(10)
+    @measurements = Measurement.select("
+      measurements.*, 
+      devices.name AS device_name
+    ")
+      .joins(:device).order("id DESC").limit(10)
 
     render json: @measurements
   end
