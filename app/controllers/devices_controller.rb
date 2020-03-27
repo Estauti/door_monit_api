@@ -5,17 +5,16 @@ class DevicesController < ApplicationController
   def index
     @devices = Device.select("
       devices.*,
-      last_measurement.opened
+      measurements.opened
     ")
     .joins("LEFT JOIN (
         SELECT 
-          id, 
           device_id,
-          opened
+          MAX(id) AS id
         FROM measurements
-        ORDER BY id DESC
-        LIMIT 1
+        GROUP BY device_id
       ) AS last_measurement ON last_measurement.device_id = devices.id")
+    .joins("LEFT JOIN measurements ON measurements.id = last_measurement.id")
     .order("devices.name")
 
     render json: @devices, status: :ok
