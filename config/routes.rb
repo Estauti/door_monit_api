@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   scope :api do
+    mount_devise_token_auth_for 'User', at: 'auth'
+    get 'auth/refresh', :to => 'users#refresh'
+    get 'auth/get_by_token', :to => 'users#get_by_token'
+
     resources :devices
     resources :measurements
   end
