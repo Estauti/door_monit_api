@@ -44,7 +44,7 @@ class MeasurementsController < ApplicationController
       if @device.nil?
         @device = Device.create!(
           mac: params[:mac],
-          name: "Default"
+          name: params[:name]
         )
       end
 
