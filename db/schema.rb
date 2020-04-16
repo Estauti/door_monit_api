@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_005622) do
+ActiveRecord::Schema.define(version: 2020_04_15_233003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 2020_03_16_005622) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "authorized", default: false
+    t.bigint "user_id", default: 1
     t.index ["mac"], name: "index_devices_on_mac", unique: true
+    t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
   create_table "measurements", force: :cascade do |t|
@@ -62,5 +64,6 @@ ActiveRecord::Schema.define(version: 2020_03_16_005622) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "devices", "users"
   add_foreign_key "measurements", "devices"
 end

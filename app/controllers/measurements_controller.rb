@@ -11,6 +11,7 @@ class MeasurementsController < ApplicationController
       devices.name AS device_name
     ")
       .joins(:device).order("id DESC").limit(10)
+      .where("devices.user_id = ?", current_user.id)
 
     render json: @measurements
   end
@@ -41,14 +42,29 @@ class MeasurementsController < ApplicationController
     def find_or_create_device
       @device = Device.find_by(mac: params[:mac])
 
+      user = validate_device_owner
+      head(401) if user.nil?
+
       if @device.nil?
         @device = Device.create!(
           mac: params[:mac],
-          name: params[:name]
+          name: params[:name],
+          user_id: user.id
         )
       end
 
       head(403) unless @device.authorized
+    end
+
+    def validate_device_owner
+      user = User.find_by(email: params[:email])
+
+      return nil if user.nil?
+      return nil unless user.valid_password?(params[:password])
+      return user unless @device.present?
+      return nil if user.id != @device.user_id
+
+      return user
     end
 
     # Only allow a trusted parameter "white list" through.

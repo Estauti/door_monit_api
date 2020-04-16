@@ -16,6 +16,7 @@ class DevicesController < ApplicationController
         GROUP BY device_id
       ) AS last_measurement ON last_measurement.device_id = devices.id")
     .joins("LEFT JOIN measurements ON measurements.id = last_measurement.id")
+    .where("devices.user_id = ?", current_user.id)
     .order("devices.name")
 
     render json: @devices, status: :ok
