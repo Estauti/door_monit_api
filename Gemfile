@@ -17,11 +17,13 @@ gem 'puma', '~> 3.11'
 # gem 'bcrypt', '~> 3.1.7'
 
 # JWT auth
-gem 'devise_token_auth', '~> 1.0.0'
+gem 'devise-jwt', '~> 0.6.0'
 # gem 'dry-configurable', '0.9.0'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
+
+gem 'dotenv-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -35,7 +37,6 @@ gem 'rack-cors'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'figaro', '~> 1.1', '>= 1.1.1'
 end
 
 group :development do

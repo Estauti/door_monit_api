@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
   scope :api do
-    mount_devise_token_auth_for 'User', at: 'auth'
-    get 'auth/refresh', :to => 'users#refresh'
-    get 'auth/get_by_token', :to => 'users#get_by_token'
+    # mount_devise_token_auth_for 'User', at: 'auth'
+    # get 'auth/refresh', :to => 'users#refresh'
+    # get 'auth/get_by_token', :to => 'users#get_by_token'
+    devise_for :users,
+      path: 'auth',
+      controllers: {
+        sessions: 'sessions',
+        registrations: 'registrations'
+      }, 
+      defaults: { format: :json }
 
     resources :devices
     resources :measurements
