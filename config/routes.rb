@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   scope :api do
+    mount ActionCable.server => '/cable'
+
     devise_for :users,
       path: 'auth',
       controllers: {

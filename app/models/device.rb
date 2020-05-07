@@ -3,6 +3,10 @@ class Device < ApplicationRecord
   belongs_to :user
 
   def create_measurement(params)
-    Measurement.create!(params.merge(device_id: self.id))
+    m = Measurement.create!(params.merge(device_id: id))
+
+    if m.present?
+      MeasurementChannel.broadcast("measurements_channel_#{user.id}", {msg: "criou medição"})
+    end
   end
 end
