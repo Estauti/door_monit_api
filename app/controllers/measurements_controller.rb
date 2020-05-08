@@ -74,8 +74,7 @@ class MeasurementsController < ApplicationController
     end
 
     def send_alert_email
-      puts "AAAAAAAAAAAAAAAAAAAAAA"
-      return unless @device.in_alert
+      return unless @device.allowed_to_send_email?
 
       AlertMailer.with(user_id: @device.user_id).door_opened(@device.id).deliver_later
     end

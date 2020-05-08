@@ -5,6 +5,8 @@ class AlertMailer < ApplicationMailer
     @device = Device.find(device_id)
     @user = User.find(params[:user_id])
 
+    @device.update_columns(last_email_sent_at: Time.now)
+
     mail(to: @user.email, subject: "#{@device.name} was opened")
   end
 
