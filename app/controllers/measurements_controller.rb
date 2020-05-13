@@ -3,6 +3,7 @@ class MeasurementsController < ApplicationController
   skip_before_action :authenticate_user!, only: :create
   before_action :set_measurement, only: [:show, :update, :destroy]
   before_action :find_or_create_device, only: :create
+  after_action :send_alert_email, only: :create
 
   # GET /measurements
   def index
@@ -70,5 +71,11 @@ class MeasurementsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def measurement_params
       params.permit(:opened, :device_id)
+    end
+
+    def send_alert_email
+      return unless @device.allowed_to_send_email?
+
+      AlertMailer.with(user_id: @device.user_id).door_opened(@device.id).deliver_later
     end
 end
