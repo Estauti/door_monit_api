@@ -18,6 +18,7 @@ gem 'puma', '~> 3.11'
 
 # JWT auth
 gem 'devise-jwt', '~> 0.6.0'
+gem 'jwt'
 # gem 'dry-configurable', '0.9.0'
 
 # Use ActiveStorage variant
