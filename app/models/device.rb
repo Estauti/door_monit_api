@@ -3,7 +3,12 @@ class Device < ApplicationRecord
   belongs_to :user
 
   def create_measurement(params)
-    Measurement.create!(params.merge(device_id: self.id))
+    m = Measurement.create!(params.merge(device_id: id))
+
+    if m.present?
+      ActionCable.server.broadcast("measurement_channel:#{user.id}", {device_id: id, opened: params[:opened]})
+    end
+    return m
   end
 
   def allowed_to_send_email?
