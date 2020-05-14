@@ -1,6 +1,6 @@
 class DevicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_device, only: [:show, :update, :destroy]
+  before_action :set_device, only: [:show, :update, :destroy, :alerts]
 
   # GET /devices
   def index
@@ -39,6 +39,10 @@ class DevicesController < ApplicationController
   # DELETE /devices/1
   def destroy
     @device.destroy
+  end
+
+  def alerts
+    render json: @device.alerts.order("alerts.id DESC").limit(5), status: :ok
   end
 
   private

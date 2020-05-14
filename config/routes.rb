@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     resources :devices
     resources :measurements
+    resources :alerts
   end
 
   match "/*path", to: redirect(path: "/?redirect=%{path}"), constraints: lambda { |params, request| !params[:path].match(/api|rails/) }, via: :all

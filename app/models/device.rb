@@ -1,5 +1,6 @@
 class Device < ApplicationRecord
   has_many :measurements, dependent: :destroy
+  has_many :alerts, dependent: :destroy
   belongs_to :user
 
   def create_measurement(params)
