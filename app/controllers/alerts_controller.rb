@@ -9,6 +9,7 @@ class AlertsController < ApplicationController
         devices.name AS device_name
       ")
       .joins(:device)
+      .order("alerts.started_at DESC")
 
     if params[:device_id].present?
       @alerts = @alerts.where(device_id: params[:device_id])
