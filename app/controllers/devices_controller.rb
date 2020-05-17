@@ -19,6 +19,10 @@ class DevicesController < ApplicationController
     .where("devices.user_id = ?", current_user.id)
     .order("devices.name")
 
+    if params[:authorized].present?
+      @devices = @devices.where(devices: {authorized: true})
+    end
+
     render json: @devices, status: :ok
   end
 
