@@ -16,6 +16,9 @@ gem 'puma', '~> 3.11'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Pagination
+ gem 'pagy', '~> 3.5'
+
 # JWT auth
 gem 'devise-jwt', '~> 0.6.0'
 gem 'jwt'

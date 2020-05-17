@@ -12,6 +12,6 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     resource '/api/*',
       headers: :any,
       methods: :any,
-      expose: %w(Authorization)
+      expose: %w(Authorization Total-Pages)
   end
 end

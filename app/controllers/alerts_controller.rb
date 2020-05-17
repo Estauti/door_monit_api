@@ -15,6 +15,9 @@ class AlertsController < ApplicationController
       @alerts = @alerts.where(device_id: params[:device_id])
     end
 
+    @pagy, @alerts = pagy(@alerts, page: params[:page], items: 5)
+    response.set_header('Total-Pages', @pagy.pages)
+
     render json: @alerts, status: :ok
   end
 
