@@ -4,10 +4,77 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
-  <body>
-    <h1> Seu dispositivo '<%= @device.name %>' foi aberto! </h1>
-    <p>
-      text text text text text text
-    </p>
+  <body class="">
+    <span class="preheader">Detectamos um acionamento em um de seus dispositivos.</span>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
+      <tr>
+        <td>&nbsp;</td>
+        <td class="container">
+          <div class="content">
+
+            <!-- START CENTERED WHITE CONTAINER -->
+            <table role="presentation" class="main">
+
+              <!-- START MAIN CONTENT AREA -->
+			  <td valign="middle" style="border:none; margin:0px; padding:0px">
+			  <a href="https://door-monitoring.herokuapp.com/devices">
+			  <img src="<%= attachments['logo.png'].url %>", class="center-image" style="margin-top: 15px" alt="Door-monit logo", height=80, width=120/>
+			  </td>
+              <tr>
+                <td class="wrapper">
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td>
+                        <p>Olá, <%= @user.name %></p>
+                        <p>Um dos dispositivos cadastrados em seu Door-monit está aberto!</p>
+                        <p><b>Dispositivo: </b><%= @device.name %></p>
+                        <p><b>Alerta iniciado às: </b><%= @alert.started_at.strftime("%d/%m/%Y %H:%M:%S") %></p>
+                        <p>Verifique os detalhes clicando abaixo.</p>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                          <tbody>
+                            <tr>
+                              <td align="center">
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                  <tbody>
+                                    <tr>
+                                      <td> <a href="https://door-monitoring.herokuapp.com/devices" target="_blank">Verificar Detalhes</a> </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Caso o sensor tenha sido acionado por você mesmo, desconsidere este e-mail.</p>
+                        <p>Atenciosamente,
+                          <br>A equipe Door-monit</br>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+            <!-- END MAIN CONTENT AREA -->
+            </table>
+            <!-- END CENTERED WHITE CONTAINER -->
+
+            <!-- START FOOTER -->
+            <div class="footer">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="content-block">
+                    <span class="apple-link">Door-Monit, Joinville BR</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <!-- END FOOTER -->
+
+          </div>
+        </td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
   </body>
 </html>

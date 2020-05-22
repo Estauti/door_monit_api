@@ -12,6 +12,15 @@ class Device < ApplicationRecord
     return m
   end
 
+  def opened_alert
+    last_alert = alerts.last
+    
+    if last_alert.opened?
+      return last_alert
+    end
+    return nil
+  end
+
   def allowed_to_send_email?
     in_alert && can_send_another_email?
   end

@@ -9,6 +9,10 @@ class Alert < ApplicationRecord
     finished_at.present?
   end
 
+  def opened?
+    finished_at.nil?
+  end
+
   def broadcast_creation
     ActionCable.server.broadcast("alert_channel:#{device.user.id}", {action: 'started'})
   end
