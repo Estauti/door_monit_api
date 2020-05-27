@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV['REDIS_PROVIDER'] %>
+  url: redis://redistogo:3d869fb517e3fe7cb5849d51a48d703c@pike.redistogo.com:11061/
   channel_prefix: api_production
