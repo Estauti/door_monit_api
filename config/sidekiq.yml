@@ -1,0 +1,13 @@
+---
+:verbose: false
+:queues:
+  - [mailer, 20]
+  - [default, 20]
+  - [destroyer, 1]
+production:
+  :concurrency:  3
+development:
+  concurrency:  10
+  pool: 25
+test:
+  :concurrency:  10
