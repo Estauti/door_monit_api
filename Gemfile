@@ -27,7 +27,7 @@ gem 'jwt'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
-gem 'sidekiq', '~> 4.2', '>= 4.2.10'
+gem 'sidekiq', '~> 6.4'
 gem 'dotenv-rails'
 
 # Use Capistrano for deployment
